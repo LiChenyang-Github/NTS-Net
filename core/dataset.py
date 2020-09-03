@@ -24,12 +24,20 @@ class CUB():
             train_test_list.append(int(line[:-1].split(' ')[-1]))
         train_file_list = [x for i, x in zip(train_test_list, img_name_list) if i]
         test_file_list = [x for i, x in zip(train_test_list, img_name_list) if not i]
+        # if self.is_train:
+        #     self.train_img = [scipy.misc.imread(os.path.join(self.root, 'images', train_file)) for train_file in
+        #                       train_file_list[:data_len]]
+        #     self.train_label = [x for i, x in zip(train_test_list, label_list) if i][:data_len]
+        # if not self.is_train:
+        #     self.test_img = [scipy.misc.imread(os.path.join(self.root, 'images', test_file)) for test_file in
+        #                      test_file_list[:data_len]]
+        #     self.test_label = [x for i, x in zip(train_test_list, label_list) if not i][:data_len]
         if self.is_train:
-            self.train_img = [scipy.misc.imread(os.path.join(self.root, 'images', train_file)) for train_file in
+            self.train_img = [Image.open(os.path.join(self.root, 'images', train_file)) for train_file in
                               train_file_list[:data_len]]
             self.train_label = [x for i, x in zip(train_test_list, label_list) if i][:data_len]
         if not self.is_train:
-            self.test_img = [scipy.misc.imread(os.path.join(self.root, 'images', test_file)) for test_file in
+            self.test_img = [Image.open(os.path.join(self.root, 'images', test_file)) for test_file in
                              test_file_list[:data_len]]
             self.test_label = [x for i, x in zip(train_test_list, label_list) if not i][:data_len]
 
@@ -38,7 +46,7 @@ class CUB():
             img, target = self.train_img[index], self.train_label[index]
             if len(img.shape) == 2:
                 img = np.stack([img] * 3, 2)
-            img = Image.fromarray(img, mode='RGB')
+            # img = Image.fromarray(img, mode='RGB')
             img = transforms.Resize((600, 600), Image.BILINEAR)(img)
             img = transforms.RandomCrop(INPUT_SIZE)(img)
             img = transforms.RandomHorizontalFlip()(img)
@@ -49,7 +57,7 @@ class CUB():
             img, target = self.test_img[index], self.test_label[index]
             if len(img.shape) == 2:
                 img = np.stack([img] * 3, 2)
-            img = Image.fromarray(img, mode='RGB')
+            # img = Image.fromarray(img, mode='RGB')
             img = transforms.Resize((600, 600), Image.BILINEAR)(img)
             img = transforms.CenterCrop(INPUT_SIZE)(img)
             img = transforms.ToTensor()(img)
