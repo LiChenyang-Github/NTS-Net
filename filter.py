@@ -2,7 +2,7 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-04 09:10:06
+# @Last Modified time: 2020-09-04 09:12:14
 
 
 import os
@@ -14,6 +14,8 @@ import imageio
 import os.path as osp
 
 from skimage import io
+from tqdm import tqdm
+
 
 def rewrite_img():
     """
