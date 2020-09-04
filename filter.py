@@ -2,7 +2,7 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-04 09:01:55
+# @Last Modified time: 2020-09-04 09:10:06
 
 
 import os
@@ -13,6 +13,7 @@ import imageio
 
 import os.path as osp
 
+from skimage import io
 
 def rewrite_img():
     """
@@ -40,15 +41,23 @@ def rewrite_img():
 
             # shutil.copy(src_img_path, dst_img_path)
 
-            with open(src_img_path, 'rb') as f:
-                check_chars = f.read()[-2:]
-            if check_chars != b'\xff\xd9':
-                print('Not complete image', src_img_path)
-            else:
-                continue
+            # with open(src_img_path, 'rb') as f:
+            #     check_chars = f.read()[-2:]
+            # if check_chars != b'\xff\xd9':
+            #     print('Not complete image', src_img_path)
+            # else:
+            #     continue
 
             # img = cv2.imread(src_img_path)
 
+
+            try:
+                _ = io.imread(src_img_path)
+                # img = cv2.imread(path)
+                # Do stuff with img
+            except Exception as e:
+                print(e, src_img_path)
+                # return False
 
 
 
