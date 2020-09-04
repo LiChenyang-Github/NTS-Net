@@ -2,7 +2,7 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-04 08:06:08
+# @Last Modified time: 2020-09-04 08:12:45
 
 
 import os
@@ -12,9 +12,9 @@ import os.path as osp
 
 
 def rewrite_img():
-"""
-Rewrite the img and replace the ' ' with '_'    
-"""
+    """
+    Rewrite the img and replace the ' ' with '_'
+    """
     src_img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/data/images/"
     dst_img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images/"
 
@@ -41,8 +41,33 @@ Rewrite the img and replace the ' ' with '_'
 
 
 
+def gen_images_txt():
+
+    img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images/"
+    txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images.txt"
+
+    dataset_names = os.listdir(img_root_dir)
+    cnt = 0
+    f = open(txt_path, 'w')
+
+
+    for dataset_name in dataset_names:
+        dataset_dir = osp.join(img_root_dir, dataset_name)
+
+        img_names = os.listdir(dataset_dir)
+
+        for img_name in img_names:
+
+            cnt += 1
+
+            img_relative_path = osp.join(dataset_name, img_name)
+            line = "{} {}\n".format(cnt, img_relative_path)
+            f.write(line)
+
+    f.close()
 
 
 
 if __name__ == '__main__':
-    rewrite_img()
+    # rewrite_img()
+    gen_images_txt()
