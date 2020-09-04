@@ -2,10 +2,11 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-04 08:38:55
+# @Last Modified time: 2020-09-04 08:54:14
 
 
 import os
+import cv2
 import pdb
 import shutil
 
@@ -36,7 +37,9 @@ def rewrite_img():
             src_img_path = osp.join(src_dataset_dir, img_name)
             dst_img_path = osp.join(dst_dataset_dir, img_name.replace(' ', '_'))
 
-            shutil.copy(src_img_path, dst_img_path)
+            # shutil.copy(src_img_path, dst_img_path)
+
+            img = cv2.imread(src_img_path)
 
 
 
@@ -133,8 +136,8 @@ def gen_train_test_split_txt():
 
 
 if __name__ == '__main__':
-    # rewrite_img()
+    rewrite_img()
     # gen_images_txt()
     # gen_image_class_labels_txt()
-    gen_train_test_split_txt()
+    # gen_train_test_split_txt()
 
