@@ -6,6 +6,7 @@ from torchvision import transforms
 from config import INPUT_SIZE
 
 import imageio
+from tqdm import tqdm
 
 class CUB():
     def __init__(self, root, is_train=True, data_len=None):
@@ -35,11 +36,11 @@ class CUB():
         #     self.test_label = [x for i, x in zip(train_test_list, label_list) if not i][:data_len]
         if self.is_train:
             self.train_img = [imageio.imread(os.path.join(self.root, 'images', train_file)) for train_file in
-                              train_file_list[:data_len]]
+                              tqdm(train_file_list[:data_len])]
             self.train_label = [x for i, x in zip(train_test_list, label_list) if i][:data_len]
         if not self.is_train:
             self.test_img = [imageio.imread(os.path.join(self.root, 'images', test_file)) for test_file in
-                             test_file_list[:data_len]]
+                             tqdm(test_file_list[:data_len])]
             self.test_label = [x for i, x in zip(train_test_list, label_list) if not i][:data_len]
 
     def __getitem__(self, index):
