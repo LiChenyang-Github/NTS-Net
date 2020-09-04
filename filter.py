@@ -2,13 +2,14 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-04 08:54:14
+# @Last Modified time: 2020-09-04 09:01:55
 
 
 import os
 import cv2
 import pdb
 import shutil
+import imageio
 
 import os.path as osp
 
@@ -39,7 +40,14 @@ def rewrite_img():
 
             # shutil.copy(src_img_path, dst_img_path)
 
-            img = cv2.imread(src_img_path)
+            with open(src_img_path, 'rb') as f:
+                check_chars = f.read()[-2:]
+            if check_chars != b'\xff\xd9':
+                print('Not complete image', src_img_path)
+            else:
+                continue
+
+            # img = cv2.imread(src_img_path)
 
 
 
