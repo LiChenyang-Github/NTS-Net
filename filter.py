@@ -2,10 +2,11 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-04 08:12:45
+# @Last Modified time: 2020-09-04 08:24:26
 
 
 import os
+import pdb
 import shutil
 
 import os.path as osp
@@ -46,7 +47,7 @@ def gen_images_txt():
     img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images/"
     txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images.txt"
 
-    dataset_names = os.listdir(img_root_dir)
+    dataset_names = sorted(os.listdir(img_root_dir))
     cnt = 0
     f = open(txt_path, 'w')
 
@@ -68,6 +69,34 @@ def gen_images_txt():
 
 
 
+def gen_image_class_labels_txt():
+
+    img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images/"
+    img_txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images.txt"
+    img_cls_label_txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/image_class_labels.txt"
+    dataset_names = sorted(os.listdir(img_root_dir))
+
+    f_w = open(img_cls_label_txt_path, 'w')
+    f_r = open(img_txt_path, 'r')
+    src_lines = f_r.readlines()
+
+    for i, src_line in enumerate(src_lines):
+        dataset_name = osp.dirname(src_line.strip().split(' ')[1])
+        cls_id = dataset_names.index(dataset_name) + 1
+        pdb.set_trace()
+        dst_line = "{} {}\n".format(i+1, cls_id)
+        f_w.write(dst_line)
+
+    f_w.close()
+    f_r.close()
+
+
+
+
+
+
 if __name__ == '__main__':
     # rewrite_img()
     gen_images_txt()
+    # gen_image_class_labels_txt()
+    
