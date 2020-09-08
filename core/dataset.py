@@ -89,7 +89,7 @@ class CUB():
                 self.test_label = [x for i, x in zip(train_test_list, label_list) if not i][:data_len]
 
             visualize_flag = True
-            vis_root_dir = "/tmp/dami/NTS-Net/center_square_0.5"
+            vis_root_dir = "/tmp/dami/NTS-Net/center_square_0.3"
             if visualize_flag:
                 if self.is_train:
                     img_list = self.train_img
@@ -100,7 +100,7 @@ class CUB():
 
                 for img_path, img in zip(file_list, img_list):
                     dst_img_path = osp.join(vis_root_dir, img_path)
-                    crop_size = int(min(img.shape[:2]) / 2)
+                    crop_size = int(min(img.shape[:2]) * 0.3)
                     h_0 = int((img.shape[0] - crop_size) / 2)
                     h_1 = int((img.shape[0] + crop_size) / 2)
                     w_0 = int((img.shape[1] - crop_size) / 2)
