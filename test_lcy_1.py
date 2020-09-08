@@ -12,10 +12,10 @@ from core.utils import progress_bar
 if not test_model:
     raise NameError('please set the test_model file to choose the checkpoint!')
 # read dataset
-trainset = dataset.CUB(root='./dami', is_train=True, data_len=None)
+trainset = dataset.CUB(root='./dami', is_train=True, data_len=10)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE,
                                           shuffle=True, num_workers=8, drop_last=False)
-testset = dataset.CUB(root='./dami', is_train=False, data_len=None)
+testset = dataset.CUB(root='./dami', is_train=False, data_len=10)
 testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE,
                                          shuffle=False, num_workers=8, drop_last=False)
 # define model
@@ -25,6 +25,13 @@ net.load_state_dict(ckpt['net_state_dict'])
 net = net.cuda()
 net = DataParallel(net)
 creterion = torch.nn.CrossEntropyLoss()
+
+
+
+gt_num_dict = defaultdict(int)
+pred_num_dict = defaultdict(int)
+correct_num_dict = defaultdict(int)
+
 
 # evaluate on train set
 train_loss = 0
@@ -68,6 +75,24 @@ for i, data in enumerate(testloader):
         test_correct += torch.sum(concat_predict.data == label.data)
         test_loss += concat_loss.item() * batch_size
         progress_bar(i, len(testloader), 'eval on test set')
+
+        for j in range(batch_size):
+            gt = int(label[j])
+            pred = int(concat_predict[j])
+            gt_num_dict[gt] += 1
+            pred_num_dict[pred] += 1
+            if gt == pred:
+                correct_num_dict[gt] += 1
+
+
+
+print("GT Number: {}".format(gt_num_dict))
+for i in range(4):
+    precision = correct_num_dict[i] / pred_num_dict[i]
+    recall = correct_num_dict[i] / gt_num_dict[i]
+    print(f"Cls {i}, precision: {precision}, recall: {recall}.")
+
+
 
 test_acc = float(test_correct) / total
 test_loss = test_loss / total
