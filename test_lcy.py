@@ -8,6 +8,7 @@ from core import model, dataset
 from core.utils import progress_bar
 
 import pdb
+from collections import defaultdict 
 
 # os.environ['CUDA_VISIBLE_DEVICES'] = '0,1,2,3'
 if not test_model:
@@ -26,6 +27,11 @@ net = DataParallel(net)
 creterion = torch.nn.CrossEntropyLoss()
 
 
+gt_num_dict = defaultdict(int)
+pred_num_dict = defaultdict(int)
+correct_num_dict = defaultdict(int)
+
+
 
 # evaluate on test set
 test_loss = 0
@@ -35,16 +41,30 @@ for i, data in enumerate(testloader):
     with torch.no_grad():
         img, label = data[0].cuda(), data[1].cuda()
         batch_size = img.size(0)
-        pdb.set_trace()
+        # pdb.set_trace()
         _, concat_logits, _, _, _ = net(img)
         # calculate loss
         concat_loss = creterion(concat_logits, label)
         # calculate accuracy
         _, concat_predict = torch.max(concat_logits, 1)
+        # pdb.set_trace()
+
+        for j in range(batch_size):
+            gt = int(label[j])
+            pred = int(concat_predict[j])
+            gt_num_dict[gt] += 1
+            pred_num_dict[pred] += 1
+            if gt == pred:
+                correct_num_dict[gt] += 1
+
         total += batch_size
         test_correct += torch.sum(concat_predict.data == label.data)
         test_loss += concat_loss.item() * batch_size
         progress_bar(i, len(testloader), 'eval on test set')
+
+
+pdb.set_trace()
+
 
 test_acc = float(test_correct) / total
 test_loss = test_loss / total

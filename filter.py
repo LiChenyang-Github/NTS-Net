@@ -2,7 +2,7 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-04 09:12:14
+# @Last Modified time: 2020-09-08 16:44:30
 
 
 import os
@@ -149,14 +149,30 @@ def gen_train_test_split_txt():
 
 
 
+def get_label_id_map():
 
+    txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images.txt"
+    cls_names = []
+
+    with open(txt_path, 'r') as f:
+
+        lines = f.readlines()
+
+    for line in lines:
+        cls_name = osp.dirname(line.strip().split()[1])
+
+        if cls_name not in cls_names:
+            cls_names.append(cls_name)
+
+    print(cls_names)
 
 
 
 
 if __name__ == '__main__':
-    rewrite_img()
+    # rewrite_img()
     # gen_images_txt()
     # gen_image_class_labels_txt()
     # gen_train_test_split_txt()
+    get_label_id_map()
 
