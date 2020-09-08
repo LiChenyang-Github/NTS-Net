@@ -62,14 +62,17 @@ class CUB():
             for line in train_val_file:
                 train_test_list.append(int(line[:-1].split(' ')[-1]))
             
+            # Skip the bad imgs
             bad_imgs_ids = []
             for bad_img in bad_imgs:
                 img_id = img_name_list.index(bad_img)
                 bad_imgs_ids.append(img_id)
             bad_imgs_ids = sorted(bad_imgs_ids)
 
-            import pdb
-            pdb.set_trace()
+            img_name_list = [x for i, x in enumerate(img_name_list) if i not in bad_imgs_ids]
+            label_list = [x for i, x in enumerate(label_list) if i not in bad_imgs_ids]
+            train_test_list = [x for i, x in enumerate(train_test_list) if i not in bad_imgs_ids]
+
 
             train_file_list = [x for i, x in zip(train_test_list, img_name_list) if i]
             test_file_list = [x for i, x in zip(train_test_list, img_name_list) if not i]

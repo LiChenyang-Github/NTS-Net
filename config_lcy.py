@@ -6,7 +6,7 @@ LR = 0.001
 WD = 1e-4
 SAVE_FREQ = 1
 resume = ''
-test_model = 'model.ckpt'
+test_model = './work_dirs/dami_tmp/20200904_093822/075.ckpt'
 
 save_dir = './work_dirs/dami_tmp/'
 
