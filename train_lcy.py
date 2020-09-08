@@ -4,7 +4,7 @@ from torch.nn import DataParallel
 from datetime import datetime
 from torch.optim.lr_scheduler import MultiStepLR
 from config_lcy import BATCH_SIZE, PROPOSAL_NUM, SAVE_FREQ, LR, WD, resume, save_dir
-from core import model, dataset
+from core import model, dataset_lcy
 from core.utils import init_log, progress_bar
 
 # os.environ['CUDA_VISIBLE_DEVICES'] = '0,1,2,3'
@@ -18,10 +18,10 @@ logging = init_log(save_dir)
 _print = logging.info
 
 # read dataset
-trainset = dataset.CUB(root='./dami', is_train=True, data_len=None)
+trainset = dataset_lcy.CUB(root='./dami', is_train=True, data_len=None, center_crop=True)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE,
                                           shuffle=True, num_workers=8, drop_last=False)
-testset = dataset.CUB(root='./dami', is_train=False, data_len=None)
+testset = dataset_lcy.CUB(root='./dami', is_train=False, data_len=None, center_crop=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE,
                                          shuffle=False, num_workers=8, drop_last=False)
 # define model
