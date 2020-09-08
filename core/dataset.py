@@ -93,7 +93,19 @@ class CUB():
             if visualize_flag:
                 for img_path, img in zip(train_file_list[:data_len], self.train_img):
                     dst_img_path = osp.join(vis_root_dir, img_path)
-                    pdb.set_trace()
+                    crop_size = int(min(img.shape[:2]) / 2)
+                    h_0 = int((img.shape[0] - crop_size) / 2)
+                    h_1 = int((img.shape[0] + crop_size) / 2)
+                    w_0 = int((img.shape[1] - crop_size) / 2)
+                    w_1 = int((img.shape[1] + crop_size) / 2)
+
+                    crop_img = img[h_0:h_1, w_0:w1, :]
+
+                    if not osp.isdir(osp.dirname(dst_img_path)):
+                        os.makedirs(osp.dirname(dst_img_path))
+                    imageio.imwrite(dst_img_path, crop_img)
+
+
 
 
                 
