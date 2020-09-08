@@ -14,8 +14,8 @@ from collections import defaultdict
 if not test_model:
     raise NameError('please set the test_model file to choose the checkpoint!')
 # read dataset
-# testset = dataset.CUB(root='./dami', is_train=False, data_len=None)
-testset = dataset.CUB(root='./dami', is_train=False, data_len=10)
+testset = dataset.CUB(root='./dami', is_train=False, data_len=None)
+# testset = dataset.CUB(root='./dami', is_train=False, data_len=10)
 testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE,
                                          shuffle=False, num_workers=8, drop_last=False)
 # define model
@@ -63,7 +63,13 @@ for i, data in enumerate(testloader):
         progress_bar(i, len(testloader), 'eval on test set')
 
 
-pdb.set_trace()
+# pdb.set_trace()
+print("GT Number: {}".format(gt_num_dict))
+for i in range(4):
+    precision = correct_num_dict[i] / pred_num_dict[i]
+    recall = correct_num_dict[i] / gt_num_dict[i]
+    print(f"Cls {i}, precision: {precision}, recall: {recall}.")
+
 
 
 test_acc = float(test_correct) / total
