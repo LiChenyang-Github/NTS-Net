@@ -37,6 +37,9 @@ correct_num_dict = defaultdict(int)
 test_loss = 0
 test_correct = 0
 total = 0
+net.eval()
+
+
 for i, data in enumerate(testloader):
     with torch.no_grad():
         img, label = data[0].cuda(), data[1].cuda()

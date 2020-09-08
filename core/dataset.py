@@ -8,6 +8,9 @@ from config import INPUT_SIZE
 import imageio
 from tqdm import tqdm
 
+import pdb
+import os.path as osp
+
 class CUB():
     def __init__(self, root, is_train=True, data_len=None):
         self.root = root
@@ -84,6 +87,16 @@ class CUB():
                 self.test_img = [imageio.imread(os.path.join(self.root, 'images', test_file)) for test_file in
                                  tqdm(test_file_list[:data_len])]
                 self.test_label = [x for i, x in zip(train_test_list, label_list) if not i][:data_len]
+
+            visualize_flag = True
+            vis_root_dir = "/tmp/dami/NTS-Net/center_square_0.5"
+            if visualize_flag:
+                for img_path, img in zip(train_file_list[:data_len], self.train_img):
+                    dst_img_path = osp.join(vis_root_dir, img_path)
+                    pdb.set_trace()
+
+
+                
 
     def __getitem__(self, index):
         if self.is_train:
