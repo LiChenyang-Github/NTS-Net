@@ -93,10 +93,12 @@ class CUB():
             if visualize_flag:
                 if self.is_train:
                     img_list = self.train_img
+                    file_list = train_file_list[:data_len]
                 else:
                     img_list = self.test_img
-                    
-                for img_path, img in zip(train_file_list[:data_len], img_list):
+                    file_list = test_file_list[:data_len]
+
+                for img_path, img in zip(file_list, img_list):
                     dst_img_path = osp.join(vis_root_dir, img_path)
                     crop_size = int(min(img.shape[:2]) / 2)
                     h_0 = int((img.shape[0] - crop_size) / 2)
