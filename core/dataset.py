@@ -91,7 +91,12 @@ class CUB():
             visualize_flag = True
             vis_root_dir = "/tmp/dami/NTS-Net/center_square_0.5"
             if visualize_flag:
-                for img_path, img in zip(train_file_list[:data_len], self.train_img):
+                if self.is_train:
+                    img_list = self.train_img
+                else:
+                    img_list = self.test_img
+                    
+                for img_path, img in zip(train_file_list[:data_len], img_list):
                     dst_img_path = osp.join(vis_root_dir, img_path)
                     crop_size = int(min(img.shape[:2]) / 2)
                     h_0 = int((img.shape[0] - crop_size) / 2)
@@ -99,7 +104,7 @@ class CUB():
                     w_0 = int((img.shape[1] - crop_size) / 2)
                     w_1 = int((img.shape[1] + crop_size) / 2)
 
-                    crop_img = img[h_0:h_1, w_0:w1, :]
+                    crop_img = img[h_0:h_1, w_0:w_1, :]
 
                     if not osp.isdir(osp.dirname(dst_img_path)):
                         os.makedirs(osp.dirname(dst_img_path))
