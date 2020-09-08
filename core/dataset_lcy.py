@@ -100,7 +100,7 @@ class CUB():
                 crop_img_list = []
 
                 for img_path, img in zip(file_list, img_list):
-                    crop_size = int(min(img.shape[:2]) / 2)
+                    crop_size = int(min(img.shape[:2]) / 3)
                     h_0 = int((img.shape[0] - crop_size) / 2)
                     h_1 = int((img.shape[0] + crop_size) / 2)
                     w_0 = int((img.shape[1] - crop_size) / 2)
