@@ -14,8 +14,10 @@ from collections import defaultdict
 if not test_model:
     raise NameError('please set the test_model file to choose the checkpoint!')
 # read dataset
-testset = dataset.CUB(root='./dami', is_train=False, data_len=None)
+# testset = dataset.CUB(root='./dami', is_train=False, data_len=None)
 # testset = dataset.CUB(root='./dami', is_train=False, data_len=10)
+testset = dataset.CUB(root='./dami', is_train=False, data_len=None, center_crop=True)
+
 testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE,
                                          shuffle=False, num_workers=8, drop_last=False)
 # define model
