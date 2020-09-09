@@ -4,7 +4,7 @@ import torch.utils.data
 from torch.nn import DataParallel
 # from config import BATCH_SIZE, PROPOSAL_NUM, test_model
 from config_lcy import BATCH_SIZE, PROPOSAL_NUM, test_model
-from core import model, dataset
+from core import model, dataset_lcy
 from core.utils import progress_bar
 
 import pdb
@@ -16,7 +16,7 @@ if not test_model:
 # read dataset
 # testset = dataset.CUB(root='./dami', is_train=False, data_len=None)
 # testset = dataset.CUB(root='./dami', is_train=False, data_len=10)
-testset = dataset.CUB(root='./dami', is_train=False, data_len=None, center_crop=True)
+testset = dataset_lcy.CUB(root='./dami', is_train=False, data_len=None, center_crop=True)
 
 testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE,
                                          shuffle=False, num_workers=8, drop_last=False)
