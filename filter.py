@@ -2,7 +2,7 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-10 17:36:20
+# @Last Modified time: 2020-09-10 17:37:43
 
 
 import os
@@ -66,8 +66,10 @@ def rewrite_img():
 
 def gen_images_txt():
 
-    img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images/"
-    txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images.txt"
+    # img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images/"
+    # txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images.txt"
+    img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA_TEST/images/"
+    txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA_TEST/images.txt"
 
     dataset_names = sorted(os.listdir(img_root_dir))
     cnt = 0
@@ -192,5 +194,7 @@ if __name__ == '__main__':
     # gen_train_test_split_txt()
     # get_label_id_map()
 
-    check_space_in_img_name()
+    # check_space_in_img_name()
+    gen_images_txt()
+
 
