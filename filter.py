@@ -2,7 +2,7 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-08 16:44:30
+# @Last Modified time: 2020-09-10 17:36:20
 
 
 import os
@@ -167,12 +167,30 @@ def get_label_id_map():
     print(cls_names)
 
 
+def check_space_in_img_name():
 
+    img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA_TEST/images/"
+
+    dataset_names = os.listdir(img_root_dir)
+
+
+    for dataset_name in dataset_names:
+        dataset_dir = osp.join(img_root_dir, dataset_name)
+
+        img_names = os.listdir(dataset_dir)
+
+        for img_name in img_names:
+
+            if ' ' in img_name:
+                print(f"{dataset_name}/{img_name}")
+            
 
 if __name__ == '__main__':
     # rewrite_img()
     # gen_images_txt()
     # gen_image_class_labels_txt()
     # gen_train_test_split_txt()
-    get_label_id_map()
+    # get_label_id_map()
+
+    check_space_in_img_name()
 
