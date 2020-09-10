@@ -16,8 +16,8 @@ if not test_model:
 # read dataset
 # testset = dataset.CUB(root='./dami', is_train=False, data_len=None)
 # testset = dataset.CUB(root='./dami', is_train=False, data_len=10)
-testset = dataset_lcy.CUB(root='./dami', is_train=False, data_len=None, center_crop=False)
-# testset = dataset_lcy.CUB(root='./dami_test', is_train=False, data_len=None, center_crop=False)
+# testset = dataset_lcy.CUB(root='./dami', is_train=False, data_len=None, center_crop=False)
+testset = dataset_lcy.CUB(root='./dami_test', is_train=False, data_len=None, center_crop=False)
 
 
 testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE,
@@ -73,8 +73,8 @@ for i, data in enumerate(testloader):
 # pdb.set_trace()
 print("GT Number: {}".format(gt_num_dict))
 for i in range(4):
-    precision = correct_num_dict[i] / pred_num_dict[i]
-    recall = correct_num_dict[i] / gt_num_dict[i]
+    precision = correct_num_dict[i] / pred_num_dict[i] if pred_num_dict[i] != 0 else 0
+    recall = correct_num_dict[i] / gt_num_dict[i] if gt_num_dict[i] != 0 else 0
     print(f"Cls {i}, precision: {precision}, recall: {recall}.")
 
 
