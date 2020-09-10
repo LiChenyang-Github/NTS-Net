@@ -19,11 +19,11 @@ _print = logging.info
 
 # read dataset
 # trainset = dataset_lcy.CUB(root='./dami', is_train=True, data_len=None, center_crop=True)
-trainset = dataset_lcy.CUB(root='./dami', is_train=True, data_len=None, center_crop=True, 
+trainset = dataset_lcy.CUB(root='./dami', is_train=True, data_len=10, center_crop=True, 
     use_randomscale=True, use_rotate=True)
 trainloader = torch.utils.data.DataLoader(trainset, batch_size=BATCH_SIZE,
                                           shuffle=True, num_workers=8, drop_last=False)
-testset = dataset_lcy.CUB(root='./dami', is_train=False, data_len=None, center_crop=True)
+testset = dataset_lcy.CUB(root='./dami', is_train=False, data_len=10, center_crop=True)
 testloader = torch.utils.data.DataLoader(testset, batch_size=BATCH_SIZE,
                                          shuffle=False, num_workers=8, drop_last=False)
 # define model
