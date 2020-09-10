@@ -12,9 +12,15 @@ import pdb
 import os.path as osp
 
 class CUB():
-    def __init__(self, root, is_train=True, data_len=None, center_crop=False):
+    def __init__(self, root, is_train=True, data_len=None, center_crop=False, 
+            use_randomscale=False, use_rotate=False, use_colorjitter=False):
         self.root = root
         self.is_train = is_train
+        self.use_rotate = use_rotate
+        self.use_colorjitter = use_colorjitter
+        self.use_randomscale = use_randomscale
+
+
         img_txt_file = open(os.path.join(self.root, 'images.txt'))
         label_txt_file = open(os.path.join(self.root, 'image_class_labels.txt'))
         train_val_file = open(os.path.join(self.root, 'train_test_split.txt'))
@@ -92,7 +98,7 @@ class CUB():
                 crop_img_list = []
 
                 for img_path, img in zip(file_list, img_list):
-                    # crop_size = int(min(img.shape[:2]) / 3)
+                    crop_size = int(min(img.shape[:2]) / 3)
                     # crop_size = int(min(img.shape[:2]) / 2)
                     h_0 = int((img.shape[0] - crop_size) / 2)
                     h_1 = int((img.shape[0] + crop_size) / 2)
@@ -122,7 +128,15 @@ class CUB():
                 img = np.stack([img] * 3, 2)
             img = Image.fromarray(img, mode='RGB')
             img = transforms.Resize((600, 600), Image.BILINEAR)(img)
-            img = transforms.RandomCrop(INPUT_SIZE)(img)
+            if not self.use_randomscale:
+                img = transforms.RandomCrop(INPUT_SIZE)(img)
+            else:
+                img = transforms.RandomResizedCrop(INPUT_SIZE, scale=(0.1, 1.0), ratio=(0.999,1.001))(img)
+            if self.use_rotate:
+                img = torchvision.transforms.RandomRotation(30)
+            if self.use_colorjitter:
+                img = torchvision.transforms.ColorJitter(brightness=0.5, contrast=0, saturation=0, hue=0)
+                
             img = transforms.RandomHorizontalFlip()(img)
             img = transforms.ToTensor()(img)
             img = transforms.Normalize([0.485, 0.456, 0.406], [0.229, 0.224, 0.225])(img)
