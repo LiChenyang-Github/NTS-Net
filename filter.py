@@ -2,7 +2,7 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-10 17:41:14
+# @Last Modified time: 2020-09-10 17:46:24
 
 
 import os
@@ -185,15 +185,32 @@ def check_space_in_img_name():
 
             if ' ' in img_name:
                 print(f"{dataset_name}/{img_name}")
-            
+
+
+def gen_all_test_txt():
+
+    txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA_TEST/train_test_split.txt"
+    img_num = 112
+
+    with open(txt_path, 'w') as f:
+        for i in range(img_num):
+            line = f"{i+1} 0\n"
+            f.write(line)
+
+    
+
+
+
+
 
 if __name__ == '__main__':
     # rewrite_img()
     # gen_images_txt()
-    gen_image_class_labels_txt()
+    # gen_image_class_labels_txt()
     # gen_train_test_split_txt()
     # get_label_id_map()
 
     # check_space_in_img_name()
+    gen_all_test_txt()
 
 
