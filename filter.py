@@ -2,7 +2,7 @@
 # @Author: lee.lcy
 # @Date:   2020-09-04 07:55:13
 # @Last Modified by:   lee.lcy
-# @Last Modified time: 2020-09-10 17:37:43
+# @Last Modified time: 2020-09-10 17:41:14
 
 
 import os
@@ -95,9 +95,9 @@ def gen_images_txt():
 
 def gen_image_class_labels_txt():
 
-    img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images/"
-    img_txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/images.txt"
-    img_cls_label_txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA/image_class_labels.txt"
+    img_root_dir = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA_TEST/images/"
+    img_txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA_TEST/images.txt"
+    img_cls_label_txt_path = "/mnt/data2/lee.lcy/Datasets/dami/NTS_DATA_TEST/image_class_labels.txt"
     dataset_names = sorted(os.listdir(img_root_dir))
 
     f_w = open(img_cls_label_txt_path, 'w')
@@ -190,11 +190,10 @@ def check_space_in_img_name():
 if __name__ == '__main__':
     # rewrite_img()
     # gen_images_txt()
-    # gen_image_class_labels_txt()
+    gen_image_class_labels_txt()
     # gen_train_test_split_txt()
     # get_label_id_map()
 
     # check_space_in_img_name()
-    gen_images_txt()
 
 
