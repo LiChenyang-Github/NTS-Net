@@ -133,9 +133,9 @@ class CUB():
             else:
                 img = transforms.RandomResizedCrop(INPUT_SIZE, scale=(0.1, 1.0), ratio=(0.999,1.001))(img)
             if self.use_rotate:
-                img = torchvision.transforms.RandomRotation(30)(img)
+                img = transforms.RandomRotation(30)(img)
             if self.use_colorjitter:
-                img = torchvision.transforms.ColorJitter(brightness=0.5, contrast=0, saturation=0, hue=0)(img)
+                img = transforms.ColorJitter(brightness=0.5, contrast=0, saturation=0, hue=0)(img)
                 
             img = transforms.RandomHorizontalFlip()(img)
             img = transforms.ToTensor()(img)
