@@ -16,7 +16,7 @@ if not test_model:
 # read dataset
 # testset = dataset.CUB(root='./dami', is_train=False, data_len=None)
 # testset = dataset.CUB(root='./dami', is_train=False, data_len=10)
-testset = dataset_lcy.CUB(root='./dami', is_train=False, data_len=None, center_crop=True)
+testset = dataset_lcy.CUB(root='./dami', is_train=False, data_len=None, center_crop=True, vis_img=True)
 # testset = dataset_lcy.CUB(root='./dami_test', is_train=False, data_len=None, center_crop=True)
 
 

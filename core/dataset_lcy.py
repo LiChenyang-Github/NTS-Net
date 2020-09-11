@@ -13,12 +13,13 @@ import os.path as osp
 
 class CUB():
     def __init__(self, root, is_train=True, data_len=None, center_crop=False, 
-            use_randomscale=False, use_rotate=False, use_colorjitter=False):
+            use_randomscale=False, use_rotate=False, use_colorjitter=False, vis_img=False):
         self.root = root
         self.is_train = is_train
         self.use_rotate = use_rotate
         self.use_colorjitter = use_colorjitter
         self.use_randomscale = use_randomscale
+        self.vis_img = vis_img
 
 
         img_txt_file = open(os.path.join(self.root, 'images.txt'))
@@ -108,6 +109,14 @@ class CUB():
                     crop_img = img[h_0:h_1, w_0:w_1, :]
 
                     crop_img_list.append(crop_img)
+
+                    if self.vis_img:
+                        vis_root_dir = "/tmp/dami/NTS-Net/test_img/center_square_devide3"
+                        dst_img_path = osp.join(vis_root_dir, img_path)
+
+                        if not osp.isdir(osp.dirname(dst_img_path)):
+                            os.makedirs(osp.dirname(dst_img_path))
+                        imageio.imwrite(dst_img_path, crop_img)
 
                 if self.is_train:
                     self.train_img = crop_img_list
